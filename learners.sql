@@ -49,15 +49,27 @@ LIMIT 20;
 
 
 -- Question 4 part 1
-SELECT u.user_id, u.email_domain, p.learn_cpp, p.learn_html, p.learn_java, p.learn_javascript, p.learn_sql 
+SELECT u.email_domain, 
+COUNT(CASE WHEN p.learn_cpp != '' then 1 END) as 'CPP',
+COUNT(CASE WHEN p.learn_html != '' then 1 END) as 'HTML',
+COUNT(CASE WHEN p.learn_java != '' then 1 END) as 'JAVA',
+COUNT(CASE WHEN p.learn_javascript != '' then 1 END) as 'JS',
+COUNT(CASE WHEN p.learn_sql != '' then 1 END) as 'SQL',
+COUNT(u.user_id) as 'Number Of Learners'
 FROM users u
 JOIN progress p
 ON u.user_id = p.user_id
+GROUP BY u.email_domain
 ORDER BY u.email_domain;
 #Ans: Yes, from the result shown, different schools (.edu domains) prefer different courses.
 
 -- Question 4 part 2
-SELECT u.user_id, u.city, p.learn_cpp, p.learn_html, p.learn_java, p.learn_javascript, p.learn_sql 
+SELECT u.user_id, u.city, 
+p.learn_cpp as 'CPP', 
+p.learn_html as 'HTML', 
+p.learn_java as 'JAVA', 
+p.learn_javascript as 'JS', 
+p.learn_sql as 'SQL'
 FROM users u
 JOIN progress p
 ON u.user_id = p.user_id
@@ -65,7 +77,12 @@ WHERE u.city IN ('New York');
 #Ans: New Yorkers students are taking all the courses including cpp, html, java, javascript and sql.
 
 -- Question 4 part 3
-SELECT u.user_id, u.city, p.learn_cpp, p.learn_html, p.learn_java, p.learn_javascript, p.learn_sql 
+SELECT u.user_id, u.city, 
+p.learn_cpp as 'CPP', 
+p.learn_html as 'HTML', 
+p.learn_java as 'JAVA', 
+p.learn_javascript as 'JS', 
+p.learn_sql as 'SQL'
 FROM users u
 JOIN progress p
 ON u.user_id = p.user_id
